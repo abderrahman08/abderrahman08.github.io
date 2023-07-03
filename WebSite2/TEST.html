@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLY</title>
+    <link rel="stylesheet" href="Website.css">
+    <link href="css/styles.css" rel="stylesheet"/>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#!">FLYYYHIGH</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="Home.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Discussion.html">Discuss</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="Product.html">All Products</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="Product.html?category=bestseller">Bestseller</a></li>
+        <li><a class="dropdown-item" href="Product.html?category=newarrivals">New Arrivals</a></li>
+        <li><a class="dropdown-item" href="Product.html?category=men">Men</a></li>
+        <li><a class="dropdown-item" href="Product.html?category=women">Women</a></li>
+        <li><a class="dropdown-item" href="Product.html?category=kids">Kids</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <button class="btn btn-outline-dark" href="Cart.html" type="submit">
+                            <i class="bi-cart-fill me-1"></i>
+                            Cart
+                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+      </header>
+    <main class="container">
+      <div class="row mb-3">
+          <div class="col">
+              <div class="form-floating">
+                  <select id="category" class="form-select">
+                      <option value="">All Categories</option>
+                      <option value="bestseller">Bestsellers</option>
+                      <option value="newarrivals">New Arrivals</option>
+                      <option value="men">Men</option>
+                      <option value="women">Women</option>
+                      <option value="kids">Kids</option>
+                  </select>
+                  <label for="category">Filter by Category</label>
+              </div>
+          </div>
+      </div>
+      <div id="product-list" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          <!-- Product cards will be dynamically added here -->
+      </div>
+    </main>
+  
+    
+  </body>
+  </html>
+  <script>
+    // Sample product data
+    const products = [
+        { name: 'Product 1', category: 'bestseller' },
+        { name: 'Product 2', category: 'newarrivals' },
+        { name: 'Product 3', category: 'men' },
+        { name: 'Product 4', category: 'women' },
+        { name: 'Product 5', category: 'kids' },
+        { name: 'Product 6', category: 'bestseller' },
+        { name: 'Product 7', category: 'newarrivals' },
+        { name: 'Product 8', category: 'men' },
+        { name: 'Product 9', category: 'women' },
+        { name: 'Product 10', category: 'kids' },
+        { name: 'Product 11', category: 'men' },
+        { name: 'Product 12', category: 'kids' },
+        { name: 'Product 13', category: 'kids' },
+        { name: 'Product 14', category: 'men' },
+        { name: 'Product 14', category: 'newarrivals' },
+        { name: 'Product 15', category: 'kids' },
+        { name: 'Product 16', category: 'newarrival' },
+    ];
+
+    // Function to generate product cards
+    function generateProductCard(product) {
+        const card = document.createElement('div');
+        card.classList.add('col', 'mb-5');
+        card.innerHTML = `
+            <div class="card h-100">
+                ${
+                  product.category === 'bestseller'
+                    ? `<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Bestseller</div>`
+                    : ''
+                }
+                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+                <div class="card-body p-4">
+                    <div class="text-center">
+                        <h5 class="fw-bolder">${product.name}</h5>
+                        ${
+                          product.category === 'bestseller'
+                            ? `$40.00 - $80.00`
+                            : product.category === 'newarrivals'
+                            ? `New Arrival`
+                            : `$30.00`
+                        }
+                    </div>
+                </div>
+                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center">
+                        <a class="btn btn-outline-dark mt-auto" href="#">add to cart</a>
+                    </div>
+                </div>
+            </div>
+        `;
+        return card;
+    }
+
+    // Function to filter products by category
+    function filterProducts(category) {
+        const productList = document.getElementById('product-list');
+        productList.innerHTML = '';
+
+        const filteredProducts = category
+            ? products.filter(product => product.category === category)
+            : products;
+
+        filteredProducts.forEach(product => {
+            const card = generateProductCard(product);
+            productList.appendChild(card);
+        });
+    }
+
+    // Event listener for category filter
+    const categorySelect = document.getElementById('category');
+    categorySelect.addEventListener('change', (event) => {
+        const selectedCategory = event.target.value;
+        filterProducts(selectedCategory);
+    });
+
+    // Initial display of all products
+    filterProducts('');
+  </script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-ctCGm5ndOq3q5RA6odzGyEXjto1L5gBaWQhXfZqjRQ5Wb1eN8HcISgQdCWQeikzr" crossorigin="anonymous"></script>
+</body>
+</html>
